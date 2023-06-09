@@ -1,0 +1,532 @@
+@font-face {
+  font-family: "DFVN Armies Display";
+  src: url('DFVN-Armies-Display.otf');
+  ;
+}
+
+:root {
+  --player0-bg-color: #EA3323;
+  --player1-bg-color: #FFBB25;
+  --player2-bg-color: #1FB254;
+  --player3-bg-color: #007CF3;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: start;
+  padding-left: 15%;
+  justify-content: center;
+  flex-flow: column;
+  margin: 0;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  background-color: #4D394B;
+  background-image: url('theme-econotest.png');
+  background-position: top left;
+  background-repeat: inherit;
+  background-size: cover;
+}
+
+h1, h2 {
+    color: white;
+}
+
+img {
+    animation: bounce 2s infinite;
+    pointer-events: none;
+}
+
+.container, #singleMatch, #menu {
+    z-index: 99;
+}
+
+.sudoku-container {
+  border: 4px solid #1f171f;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 5px;
+  background-color: #705097;
+}
+
+.sudoku-container p{
+  width: 30px;
+  height: 20px;
+  text-align: center;
+  font-size: 20px;
+  color: #eee;
+  margin-top: 10px;
+}
+.sudoku-container .index{
+  margin: 0 auto;
+  text-align: center;
+  /* padding: 0 auto; */
+  font-size: 20px;
+  padding: 0;
+  color: #eee;
+}
+
+tr:nth-child(1) td:nth-child(3) input,
+tr:nth-child(1) td:nth-child(6) input {
+  margin: 0 10px 0 0;
+}
+
+tr:nth-child(3) input,
+tr:nth-child(6) input {
+  margin: 0 0 10px 0;
+}
+
+.sudoku-container input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 20px;
+  padding: 0;
+  border: 3px #2E222D solid;
+  background-color: #2E222D;
+  color: #eee;
+}
+.sudoku-container input:focus {
+  border-color: #4C9689;
+}
+.sudoku-container input.highlight {
+  background-color: #29B6F6;
+  /* border-color: #29B6F6; */
+}
+.sudoku-container input.highlight0 {
+  cursor: not-allowed;
+  background-color: var(--player0-bg-color);
+  border-color: var(--player0-bg-color);
+}
+.sudoku-container input.highlight1 {
+  cursor: not-allowed;
+  background-color: var(--player1-bg-color);
+  border-color: var(--player1-bg-color);
+}
+.sudoku-container input.highlight2 {
+  cursor: not-allowed;
+  background-color: var(--player2-bg-color);
+  border-color: var(--player2-bg-color);
+}
+.sudoku-container input.highlight3 {
+  cursor: not-allowed;
+  background-color: var(--player3-bg-color);
+  border-color: var(--player3-bg-color);
+}
+.sudoku-container input.disabled {
+  cursor: not-allowed;
+  background-color: #4C9689;
+  border-color: #4C9689;
+}
+
+.sudoku-container input.player1 {
+  cursor: not-allowed;
+  background-color: #4f4ae0;
+  border-color: #4f4ae0;
+}
+
+.sudoku-container input.player2 {
+  cursor: not-allowed;
+  background-color: #db74db;
+  border-color: #db74db;
+}
+
+.sudoku-container input.disabled.highlight, .sudoku-container input.player1.highlight, .sudoku-container input.player2.highlight {
+  background-color: #29B6F6;
+  border-color: #29B6F6;
+}
+
+.container button {
+    text-align: center;
+    height: 50px;
+    width: 100%;
+    margin: auto;
+    border: 3px #2E222D solid;
+    background-color: #2E222D;
+    color: #eee;
+    margin-bottom: 10px;
+}
+
+.sudoku-container .invalid {
+  border-color: #e74c3c;
+}
+.sudoku-container .invalid:focus {
+  border-color: #e74c3c;
+}
+
+.sudoku-container.valid-matrix {
+  border-color: #4C9689;
+}
+
+.lobby-window {
+    background: rgba(20,10,10,.5);
+    width: 100%;
+    height: 500px;
+    border-radius: 5px;
+}
+
+.btn.primary {
+    background-color: #4C9689;
+    box-shadow: inset 0 -3px #3b746a;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#games-list li {
+    width: 95%;
+    color: white;
+    list-style-type: none;
+}
+
+#games-list li:hover {
+    color: silver;
+    cursor: pointer;
+}
+
+#games-list a {
+    font-size: 23px;
+}
+
+#createLobby, #enterName-window {
+    margin: 0 auto;
+    width: 700px;
+    height: 250px;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px;
+    /* background: #7f3f74; */
+    background: #fff;
+    text-align: center;
+    border-radius: 4px;
+    /* font-family: 'DFVN Armies Display'; */
+}
+#enterName-window p{
+  font-size: 30px;
+}
+
+
+#createLobby button {
+    width: 200px;
+    height: 50px;
+    background-color: #7f3f74;
+    border: 1px solid #7f3f74;
+    border-radius: 3px;
+    color: white;
+    margin: 5px;
+}
+
+#msgWindow {
+    margin: 0 auto;
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px;
+    background: #7f3f74;
+    text-align: center;
+}
+
+#msgWindow p {
+    font-size: 25px;
+    color: white;
+    padding-top: 30px;
+}
+
+#chatWindow ul {
+    height: 100%;
+    width: 100%;
+    word-break: break-all;
+    overflow: auto;
+}
+
+#chatWindow input {
+    color: white;
+    height: 60px;
+    background: #352c34;
+    border: #352c34;
+    border-radius: 0;
+    font-size: 25px;
+}
+
+#singleMatch button, #menu button, #quitButton {
+    width: 200px;
+    height: 50px;
+    background-color: #7f3f74;
+    border: 1px solid #7f3f74;
+    border-radius: 3px;
+    color: white;
+    margin: 5px;
+}
+
+#singleMatch button {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+}
+
+#controls {
+  margin: 20px 0;
+}
+
+#user1Side {
+    position: absolute;
+    left: 10%;
+}
+#user2Side {
+    position: absolute;
+    left: 80%;
+}
+
+#chatWindow {
+    margin: auto;
+    border: 5px solid #6b4367;
+    width: 400px;
+    height: 350px;
+    padding: 70px 0;
+    background: #332932;
+    box-shadow: #4D394B;
+    display: none;
+    position: absolute;
+    top: 70%;
+    left: 15%;
+    z-index: 99;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: white;
+    overflow: hidden;
+}
+
+#version {
+    position: absolute;
+    right: 1%;
+    top: 0;
+    color: white;
+}
+
+#closeChat {
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    outline:none;
+    background: #332932;
+    border: 2px solid #eb686c;
+    color: red;
+    font-size: 30px;
+}
+
+#mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+}
+
+@keyframes bounce
+{
+  	0%   { margin-top: 0px; }
+	50%  { margin-top: 15px; }
+	100%  { margin-top: 0px; }
+}
+
+
+/* css input name */
+.playerInput {
+  margin-top: 35px;
+}
+.playerInput--name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playerInput--name input {
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid;
+  padding: 12px 12px;
+  margin-bottom: 5px;
+}
+
+.playerInput--name .inputPoint {
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid;
+  padding: 12px 12px;
+  margin-bottom: 5px;
+  width: 100px;
+}
+
+.playerInput--name #firstPlayerPoint{
+  margin-right: 10px;
+}
+.playerInput--name #secondPlayerPoint{
+  margin-left: 5px;
+}
+.playerInput--name #thirdPlayerPoint{
+  margin-right: 10px;
+}
+.playerInput--name #fourthPlayerPoint{
+  margin-left: 5px;
+}
+
+.playerInput--name input:first-child{
+  margin-right: 5px;
+}
+
+.playerInput--name #firstPlayer{
+  background-color: var(--player0-bg-color);
+}
+.playerInput--name #secondPlayer{
+  background-color: var(--player1-bg-color);
+}
+.playerInput--name #thirdPlayer{
+  background-color: var(--player2-bg-color);
+}
+.playerInput--name #fourthPlayer{
+  background-color: var(--player3-bg-color);
+}
+.createPlayer button {
+  border-radius: 4px;
+  border: 1px solid #FFFFFF;
+  padding: 5px 15px;
+  margin-top: 10px;
+  background-color: #FFFFFF;
+}
+.createPlayer button:hover{
+  cursor: pointer;
+  background-color: #3ef77b;
+  border:1px solid #3ef77b ;
+}
+.createPlayer button:focus{
+  outline: none;
+}
+.btnClose{
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 1px solid;
+}
+/* custom select option */
+.input-group {
+  margin-top: 20px;
+  display: flex;
+  width: 100px;
+}
+.input-group .custom-select {
+  width: 30x !important;
+}
+/* custom list User */
+.playerUser{
+  width: 450px;
+  position: absolute;
+  right:75px;
+  top: auto;
+  /* height: 68vh; */
+  height: auto;
+
+}
+.playerUser .listUser{
+  width: 100%;
+  /* height: 30vh; */
+  background-color: #5a3587;
+  border-radius: 5px;
+  padding: 20px 20px;
+  color: white;
+}
+.playerUser .listUser .playerSwatch{
+  background-color: #495057;
+  padding: 10px;
+  display: flex;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.playerUser .listUser .playerSwatch.noselect{
+  background-color: #8e9398;
+}
+.playerUser .listUser .playerSwatch.death{
+  background-color: #d44242;
+}
+
+.playerUser .listUser .playerSwatch .playerSwatch--name{
+  width: 55%;
+  display: flex;
+  /* height: 30px; */
+}
+.playerSwatch--name p{
+  font-size: 14px;
+  color: white;
+}
+.playerUser .listUser .playerSwatch .playerSwatch--color{
+  height: 20px;
+  width: 40px;
+  border-radius: 5px;
+}
+
+.playerUser .listUser .playerSwatch .playerSwatch--life{
+  margin-left: 10px;
+  /* width: 40%; */
+  display: flex;
+  /* height: 30px; */
+}
+
+.playerUser .listUser .playerSwatch .playerSwatch--point{
+  margin-left: 10px;
+  /* width: 40%; */
+  display: flex;
+  /* height: 30px; */
+}
+.playerSwatch--life p, .playerSwatch--point p{
+  font-size: 14px;
+  color: white;
+}
+
+.btnPoint,
+.btnLife {
+  display: flex;
+  padding: 0 100px;
+}
+
+.btnPoint{
+  margin-bottom: 10px;
+}
+
+.btnPoint button,
+.btnLife button{
+  border-radius: 5px;
+  height: 40px;
+  width: 70px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnPoint button:first-child,
+.btnLife button:first-child{
+  justify-content: center;
+  align-items: center;
+  margin-right: 100px;
+}
